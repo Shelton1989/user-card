@@ -1,0 +1,43 @@
+.margin-auto {
+    margin: auto;;
+}
+
+.image-padding {
+    border: 1px solid #ced9e1;
+    padding: 0.15rem;
+}
+
+.margin-spacing {
+    margin: 2.25rem 0;
+}
+
+.icons-size {
+    color: #8fa8ba;
+    font-size: 1.5rem;
+    padding: 0!important;
+}
+
+.icons-size:hover {
+    color: #acc540;
+}
+
+.rounded-card-flex {
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-background {
+    padding: 3.5rem!important;
+    border-bottom: 1px solid #ced9e1;
+}
+
+.position-card {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-68px);
+}
+.margin-top {
+    margin-top: 50px;
+}

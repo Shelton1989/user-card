@@ -1,0 +1,145 @@
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Osiris Trading</title>
+
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+
+        <!-- React -->
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+        <!-- Babel for JSX -->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <!-- Date Parser Moment -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js" crossorigin></script>
+
+        <!-- Osiris JS -->
+        <script src="./main.b403318252584e29e138.js"></script>
+        <script src="./polyfills.2c5b70a02411645f7563.js"></script>
+        <script src="./runtime.a66f828dca56eeb90e02.js"></script>
+
+        <!-- Styles -->
+        <link 
+            type="text/css" 
+            rel="stylesheet" 
+            href="./styles.4a2706caecf62b187ba2.css" 
+        />
+
+        <link 
+            type="text/css" 
+            rel="stylesheet" 
+            href="./index.css" 
+        />
+
+        <!-- Icons -->
+        <script src="https://kit.fontawesome.com/2fa42f049d.js" crossorigin="anonymous"></script>
+
+        <style>
+            body {
+                font-family: 'Ubuntu', sans-serif!important;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="u-bg-black u-height--50"></div>
+        <div id="app"></div>
+        <div class="u-bg-secondary-trans u-height--50"></div>
+        <script type="text/babel">
+
+            // Set DOM element for mounting
+            const elem = document.querySelector('#app')
+
+            // Create a new React element
+            const el = React.createElement
+
+            // SVG Images
+            const globe = "./assets/icons/svg/misc/home.svg"
+            const email = "./assets/icons/svg/misc/email.svg"
+            const calendar = "./assets/icons/svg/misc/calendar.svg"
+            const map = "./assets/icons/svg/misc/map-location.svg"
+            const call = "./assets/icons/svg/misc/call.svg"
+            const lock = "./assets/icons/svg/misc/locked.svg"
+
+            // React Element
+            class UserCard extends React.Component {
+                state = {
+                    user: null
+                }
+
+                // Validate user
+                validateUser = (res) => {
+                    if (res) {
+                        return res.json()
+                    } else {
+                        throw new Error('The response is not in the expected format.')
+                    }
+                }
+
+                parseUser = (res) => {
+                    return res.results[0]
+                }
+
+                setUser = (res) => {
+                    this.setState({
+                        user: res
+                    })
+                }
+
+                handleErrors = (err) => {
+                    if (err) {
+                        return err
+                    }
+                }
+
+                user = {}
+
+                componentWillMount () {
+                    fetch('https://randomuser.me/api/', {
+                            method: 'GET',
+                        })
+                        .then(this.validateUser)
+                        .then(this.parseUser)
+                        .then(this.setUser)
+                        .catch(this.handleErrors)
+                }
+
+                render () {
+                    const image = 'https://raw.githubusercontent.com/osiristradingza/frontendtest/master/styles/assets/200X200.svg'
+                    return (
+                        this.state.user?
+                        (<div className="u-width--100 c-input__control__box"><div className="c-card u-width--70 margin-auto c-card--shadowed rounded-card-flex">
+                            <div className="highlight u-height--20 top-background" >
+                                <div className="position-card " >
+                                    <img className="c-card__image u-image--rounded margin-auto image-padding" src={this.state.user.picture['large']} />
+                                </div>
+                            </div>
+                            <div className="u-height--80 margin-top">
+                                <p className="c-card__subtitle u-text--centered u-margin--none">My birthday is:</p>
+                                <h1 className="u-text--capitalised u-text--centered">{moment(this.state.user.dob['date']).format('D/M/YYYY')}</h1>
+                                <div className="l-row u-grid-justify--center margin-spacing">
+                                    <div className="l-row l-col-8 u-text--centered margin-auto">
+                                        <i className="fas fa-globe-europe c-icon--sm l-col-2 icons-size"></i>
+                                        <i className="far fa-envelope c-icon--sm l-col-2 icons-size"></i>
+                                        <i className="fas fa-clipboard-list c-icon--sm l-col-2 icons-size"></i>
+                                        <i className="fas fa-map-marked-alt c-icon--sm l-col-2 icons-size"></i>
+                                        <i className="fas fa-phone-alt c-icon--sm l-col-2 icons-size"></i>
+                                        <i className="fas fa-lock c-icon--sm l-col-2 icons-size"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div></div>):
+                        <div>Loading</div>
+                    )
+                }
+            }
+            
+            ReactDOM.render(el(UserCard), elem)
+        </script>
+    </body>
+</html>
